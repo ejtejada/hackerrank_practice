@@ -21,30 +21,33 @@ def jumpingOnClouds(c):
     
     jumps_to_completion = 0; #Initialize output
     #First iteration, the greedy approach
-    jumpingOnGreed(c):
+    #print(type(c[0])); #[DELETE_ME] Just a sanity type check 
+    #jumps_to_completion = jumpingOnGreed(c);
     
     return (jumps_to_completion);
 
+#Not an optimal solution, this will fail when greedy algo will fail!
 def jumpingOnGreed(c):
-	jumps_to_completion = 0;
+	jumps_to_completion = 0; 
 	last_step = 0;
 	bool_death = False;
 	#Current approach, jump greedily unless this causes death, then backtrace to a safer jump
-	for i in range(0,c):
-		if (c[i+2] == 0 and (i+2) <= c and not bool_death):
+	for i in range(0,len(c)-2):
+		if ((c[i+2] == 0) and (i+2) < len(c) and not bool_death):
 			jumps_to_completion = jumps_to_completion + 1;
 			i = i + 1; #Skip a step greedily
 			last_step = 2;
 			bool_death = False;
-		elif((c[i+1] == 0 and (i+1) <= c and not bool_death)
+		elif((c[i+1] == 0) and (i+1) < len(c) and not bool_death):
 			jumps_to_completion = jumps_to_completion + 1;
 			last_step = 1;
 			bool_death = False;
 		elif(bool_death):
 			#Next legal moves cause death, go back
 			i = i - 1 - last_step;
+			jumps_to_completion = jumps_to_completion - 1;
 		else: #We landed on a thunderhead and died, backtrace
-			bool_death = Truth;
+			bool_death = True;
 	
 	return (jumps_to_completion);
 
